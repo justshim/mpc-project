@@ -39,7 +39,20 @@ params.constraints = struct(...
 params.exercise = struct( ...
     'QdiagOptA', [91.5; 0.0924; 248;0;0;0] ...
 );
-    
-% YOUR CODE HERE
+
+% System Modeling
+% Task 5
+[Ac, Bc] = generate_system_cont(params);
+[At, Bt] = generate_system(Ac,Bc,params);
+[A, B] = generate_system_scaled(At,Bt,params);
+[H_u, h_u, H_x, h_x] = generate_constraints(params);
+
+% Add to struct
+params.model.A = A;
+params.model.B = B;
+params.constraints.InputMatrix = H_u;
+params.constraints.InputRHS = h_u;
+params.constraints.StateMatrix = H_x;
+params.constraints.StateRHS = h_x;
 
 end

@@ -7,5 +7,19 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [A,B] = generate_system_scaled(At,Bt,params)
-    % YOUR CODE HERE
+    % Task 3
+    % Get parameters
+    V = params.model.ScalingMatrix;
+    
+    % Transform Matrices
+    % x~(k+1) = A~ x~(k) + B~ u(k)
+    % Substitute x(k) = V x~(k) ==> x~(k) = V^-1 x(k)
+    % ==> V^-1 x(k+1) = A~ V^-1 x(k) + B~ u(k)
+    % ==> (V V^-1) x(k+1) = (V A~ V^-1) x(k) + (V B~) u(k)
+    % ==> x(k+1) = (V A~ V^-1) x(k) + (V B~) u(k)
+    
+    % Note that this transformation amounts to changing the units
+    % of the state from [m;m/s] to [Mm;km/s]
+    A = (V * At)/(V);
+    B = V * Bt;
 end
