@@ -7,8 +7,24 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [Xt,Ut,u_info] = simulate(x0, ctrl, params)
+    % Task 7
+    % Get parameters
+    A = params.model.A;
+    B = params.model.B;
+    Nt = params.model.HorizonLength;
+    nx = params.model.nx;
+    nu = params.model.nu;
 
-% YOUR CODE HERE
-% Hint: you can access the control command with ctrl.eval(x(:,i))
+    % Initialize output variables
+    Xt = [x0, zeros(nx,Nt)];
+    Ut = zeros(nu,Nt);
+    u_info = [];
+    
+    % Simulate
+    for i = 1:Nt
+        [Ut(:,i), u_info_i] = ctrl.eval(Xt(:,i));
+        u_info = [u_info u_info_i];
+        Xt(:,i+1) = A*Xt(:,i) + B*Ut(:,i);
+    end
 
 end

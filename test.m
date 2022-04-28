@@ -14,8 +14,11 @@ close all
 systemModelingTasks = ["generate_system_cont", "generate_system", ...
                       "generate_system_scaled", "generate_constraints", ...
                       "generate_params"];
+
+unconstrainedOptControlTasks = ["simulate", "traj_constraints", ...
+                                "lqr_tuning"];
                   
-tasksToTest = systemModelingTasks;
+tasksToTest = unconstrainedOptControlTasks;
 
 for i = 1:length(tasksToTest)
     my_test_struct = run_tests(tasksToTest(i));

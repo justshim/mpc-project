@@ -12,15 +12,16 @@ classdef LQR
     end
     
     methods
+        % Task 6
         %constructor
         function obj = LQR(Q,R,params)
-            % YOUR CODE HERE
-            % obj.K = ... (save feedback matrix for use in eval function)
+            A = params.model.A;
+            B = params.model.B;
+            [obj.K,~,~] = dlqr(A,B,Q,R);
         end
         
         function [u, u_info] = eval(obj,x)
-            % YOUR CODE HERE
-            % u = ...
+            u = -obj.K*x;
             u_info = struct('ctrl_feas',true);
         end
     end
