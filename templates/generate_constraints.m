@@ -22,5 +22,6 @@ function [H_u, h_u, H_x, h_x] = generate_constraints(params)
     
     H_x(1:2:6,:) = eye(3);
     H_x(2:2:6,:) = -eye(3);
+    H_x = [H_x, zeros(6,3)];
     h_x = kron([x_max; y_max; z_max],[1;1]);
 end
