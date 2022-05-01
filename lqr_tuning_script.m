@@ -34,14 +34,18 @@ x0A = my_params.model.InitialConditionA;
 J_u_threshold = 11;
 
 %% Parameter Generation
-Q_1 = 
+% Sampling broadly in nx space (6D space)
+N = 10;
 
+x_rand = logspace(-5,5,N);
+[q_1,q_2,q_3,q_4,q_5,q_6] = ndgrid(x_rand,x_rand,x_rand,x_rand,x_rand,x_rand);
+Q = [q_1(:),q_2(:),q_3(:),q_4(:),q_5(:),q_6(:)]';
 
 %% Tuning
+tic
 [tuning_struct, i_opt] = lqr_tuning(x0A,Q,my_params);
-
-
+toc
 q = Q(:,i_opt);
 
 %% Save Results of Parameter Study
-save('lqr_tuning_script', 'q', 'tuning_struct')
+% save('lqr_tuning_script', 'q', 'tuning_struct')
