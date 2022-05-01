@@ -24,8 +24,8 @@ function [H, h] = lqr_maxPI(Q,R,params)
     A = params.model.A;
     B = params.model.B;
 
-%     n_x = params.model.nx;
-%     n_u = params.model.nu;
+%     nx = params.model.nx;
+%     nu = params.model.nu;
     
     % Define LQR Controller
     my_LQR_ctrl = LQR(Q,R,params);
@@ -33,8 +33,6 @@ function [H, h] = lqr_maxPI(Q,R,params)
     
     % Create initial polytope defined by state constraints
     Phi_i = Polyhedron(H_x,h_x);
-    Phi_i.plot
-    hold on
     
     % Iterate
     while true
@@ -64,22 +62,22 @@ function [H, h] = lqr_maxPI(Q,R,params)
         % ==> {u | H_u*u < h_u}
         % ==> {x | (H_u*-K)*x < h_u}
         
-        close all
-        Phi_i.plot('color','r')
-        hold on
+%         close all
+%         Phi_i.plot('color','r')
+%         hold on
         F_i = Phi_i.A;
         f_i = Phi_i.b;
         F_pre = [F_i*(A-B*K); -H_u*K];
         f_pre = [f_i;h_u];
         
         Pre_Phi_i = Polyhedron(F_pre, f_pre);
-        Pre_Phi_i.plot('color','g')
+%         Pre_Phi_i.plot('color','g')
                 
         % Define Phi_j = intersection of Pre(Phi_i) and Phi_i
         F_j = [F_pre; F_i];
         f_j = [f_pre; f_i];
         Phi_j = Polyhedron(F_j,f_j);
-        Phi_j.plot('color','b')
+%         Phi_j.plot('color','b')
         
         % Check equality Phi_i and Phi_j using subsets
         % Note: Equivalent to checking if Phi_i is contained in Pre(Phi_i)
