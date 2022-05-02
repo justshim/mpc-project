@@ -15,10 +15,9 @@ systemModelingTasks = ["generate_system_cont", "generate_system", ...
                       "generate_system_scaled", "generate_constraints", ...
                       "generate_params"];
 
-unconstrainedOptControlTasks = ["simulate", "traj_constraints", ...
-                                "lqr_tuning"];
+unconstrainedOptControlTasks = ["simulate", "traj_constraints", "lqr_tuning"];
                             
-fromLQRtoMPCTasks = ["lqr_maxPI"];
+fromLQRtoMPCTasks = ["lqr_maxPI", "traj_cost", "MPC"];
                   
 tasksToTest = fromLQRtoMPCTasks;
 
