@@ -13,6 +13,7 @@ classdef MPC
 
     methods
         function obj = MPC(Q,R,N,params)
+            % Task 16
             nu = params.model.nu;
             nx = params.model.nx;
 
@@ -28,9 +29,7 @@ classdef MPC
             
             A = params.model.A;
             B = params.model.B;
- 
-            Nt = params.model.HorizonLength;
-            
+             
             % Build constraints and objective over time horizon N
             % x = {x_0} + {x_1, ..., x_N}
             % U = {u_0, ..., u_N-1}
