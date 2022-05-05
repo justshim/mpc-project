@@ -43,8 +43,11 @@ classdef MPC_TE
                 
                 % x_i in {x_1, ..., x_N}
                 % U{i} in {u_0, ..., u_N-1}
-                x = A*x + B*U{i}; 
+                x = A*x + B*U{i};
             end
+            
+            % Add terminal equality constraint
+            constraints = [constraints, x == zeros(nx,1)];
             
             opts = sdpsettings('verbose',1,'solver','quadprog');
             obj.yalmip_optimizer = optimizer(constraints,objective,opts,X0,{U{1} objective});

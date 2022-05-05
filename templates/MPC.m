@@ -46,7 +46,7 @@ classdef MPC
                 x = A*x + B*U{i}; 
             end
             
-            % TODO: Understand why exactly is this wrong?
+            % TODO: Understand why exactly is this wrong??
             % J_inf(x) = SUM(x'Qx + u'Ru) u = -Kx
             %        ==> SUM(x'Qx + (-x'K')R(-K*x))
             %        ==> SUM(x'(Q+K'RK)x)
