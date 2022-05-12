@@ -7,5 +7,26 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function Wt = generate_disturbances(params)
-    % YOUR CODE HERE
+    % Task 25    
+    H_w = params.constraints.DisturbanceMatrix;
+    h_w = params.constraints.DisturbanceRHS;
+    
+    N_t = params.model.HorizonLength;
+    nx = params.model.nx;
+    
+    Wt = zeros(nx,N_t);
+    
+    for i = 1:nx
+        [rows,~] = find(H_w(:,i));
+        
+        bounds = zeros(length(rows),1);
+        for j = rows'
+            bounds(j) = h_w(j) / H_w(j,i);
+        end
+        
+        a = min(bounds);
+        b = max(bounds);
+        
+        Wt(i,:) = unifrnd(a,b,[1,N_t]);
+    end
 end
