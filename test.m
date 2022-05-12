@@ -18,8 +18,10 @@ systemModelingTasks = ["generate_system_cont", "generate_system", ...
 unconstrainedOptControlTasks = ["simulate", "traj_constraints", "lqr_tuning"];
                             
 fromLQRtoMPCTasks = ["lqr_maxPI", "traj_cost", "MPC", "MPC_TE", "MPC_TS"];
+
+softConstraintTasks = ["MPC_TS_SC"];
                   
-tasksToTest = fromLQRtoMPCTasks;
+tasksToTest = softConstraintTasks;
 
 for i = 1:length(tasksToTest)
     my_test_struct = run_tests(tasksToTest(i));
