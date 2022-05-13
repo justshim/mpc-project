@@ -63,7 +63,7 @@ classdef MPC_TS_SC
             
             % Slack Variables
             constraints = [constraints, H_eps * eps{N+1} <= h_eps];
-            objective = objective + eps{i}'*S*eps{i} + v*norm(eps{i},inf);
+            objective = objective + eps{N+1}'*S*eps{N+1} + v*norm(eps{N+1},inf);
             
             % Add Maximum Positively Invariant Set Constraint
             constraints = [constraints, H*X{N+1} <= h];
