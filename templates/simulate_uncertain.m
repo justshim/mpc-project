@@ -7,5 +7,23 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [Xt,Ut,u_info] = simulate_uncertain(x0, ctrl, Wt, params)
-	% YOUR CODE HERE
+	% Task 26
+    % Get parameters
+    A = params.model.A;
+    B = params.model.B;
+    Nt = params.model.HorizonLength;
+    nx = params.model.nx;
+    nu = params.model.nu;
+    
+    % Initialize output variables
+    Xt = [x0, zeros(nx,Nt)];
+    Ut = zeros(nu,Nt);
+    u_info = [];
+        
+    % Simulate
+    for i = 1:Nt
+        [Ut(:,i), u_info_i] = ctrl.eval(Xt(:,i));
+        u_info = [u_info u_info_i];
+        Xt(:,i+1) = A*Xt(:,i) + B*Ut(:,i) + Wt(:,i);
+    end
 end
