@@ -18,8 +18,35 @@ close all
 
 %% Initialization
 my_params = generate_params();
-N = 30;
+nu = my_params.model.nu;
+nx = my_params.model.nx;
 
-% load('lqr_tuning_script', 'q', 'tuning_struct') [TODO: TASK 11]
-% Temporary
-Q = 0;
+Q = diag(my_params.exercise.QdiagOptA);
+R = eye(nu);
+N = 30;
+[H, h] = lqr_maxPI(Q,R,my_params);
+
+% TODO: Test for multiple different initial conditions within the state
+% constraints
+% TODO: Test for feasible vs infeasible conditions
+% x0 = my_params.model.InitialConditionA; % Feasible
+x0 = my_params.model.InitialConditionB; % Feasible
+% x0 = my_params.model.InitialConditionC; % Infeasible
+
+%% Simulate MPC w/o Soft Constraints
+my_MPC_TS_ctrl = MPC_TS(Q,R,N,H,h,my_params);
+[Xt,Ut,u_info] = simulate(x0,my_MPC_TS_ctrl,my_params);
+
+%% Tune S,v for MPC w/ Soft Constraints
+S = eye(6);
+v = logspace(2,6,5); % 100, 1000, 10000, 100000, 1000000
+
+for i = 1:size(v,2)
+    my_MPC_TS_SC_ctrl = MPC_TS_SC(Q,R,N,H,h,S,v(i),my_params);
+    [~,Ut_SC,u_info_SC] = simulate(x0,my_MPC_TS_ctrl,my_params);
+    
+    if Ut_SC == Ut
+        save('scripts/MPC_TS_SC_params','S','v');
+        break;
+    end
+end
