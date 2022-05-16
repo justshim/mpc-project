@@ -26,12 +26,21 @@ R = eye(nu);
 N = 30;
 [H, h] = lqr_maxPI(Q,R,my_params);
 
-% TODO: Test for multiple different initial conditions within the state
-% constraints
-% TODO: Test for feasible vs infeasible conditions
 % x0 = my_params.model.InitialConditionA; % Feasible
-x0 = my_params.model.InitialConditionB; % Feasible
+% x0 = my_params.model.InitialConditionB; % Feasible
 % x0 = my_params.model.InitialConditionC; % Infeasible
+
+% Generate random initial condition
+H_x = my_params.constraints.StateMatrix;
+h_x = my_params.constraints.StateRHS;
+
+x0 = zeros(nx,1);
+
+for i = 1:3
+    x0(i) = unifrnd(-h_x(2*i-1),h_x(2*i-1),1);
+end
+
+x0(4:6) = unifrnd(-1e-2,1e-2,[3,1]);
 
 %% Simulate MPC w/o Soft Constraints
 my_MPC_TS_ctrl = MPC_TS(Q,R,N,H,h,my_params);
