@@ -3,3 +3,4 @@ FORCES_client/
 tbxmanager/
 forcesSolver.mexmaci64
 forcesSolver_simulinkBlock.mexmaci64
+install_mpt3.m
