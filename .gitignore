@@ -1,4 +1,5 @@
 .DS_Store
 FORCES_client/
 tbxmanager/
-forcesSolver*
+forcesSolver.mexmaci64
+forcesSolver_simulinkBlock.mexmaci64
