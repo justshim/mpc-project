@@ -28,6 +28,8 @@ function [H_tube,h_tube,n_iter] = compute_minRPI(K_tube,params)
     Phi_i = W;
     
     n_iter = 0;
+    H_tube = Phi_i.A;
+    h_tube = Phi_i.b;
     
     for ii = 1:1000  
         n_iter = n_iter + 1;
