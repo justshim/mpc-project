@@ -29,7 +29,7 @@ function [H_tube,h_tube,n_iter] = compute_minRPI(K_tube,params)
     
     n_iter = 0;
     
-    while true   
+    for ii = 1:1000  
         n_iter = n_iter + 1;
         
         % Minkowski Sum
