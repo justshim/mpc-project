@@ -35,5 +35,5 @@ params_z_tube = compute_tightening(K_tube, H_tube, h_tube, params_z);
 [H_N, h_N] = lqr_maxPI(Q_z, R, params_z_tube);
 
 %% Save Parameters
-save('scripts/MPC_TUBE_params', 'p', 'K_tube', 'H_tube', 'h_tube', ...
-    'H_N', 'h_N', 'params_z_tube');
+save('scripts/MPC_TUBE_params', ...
+    'p', 'K_tube', 'H_tube', 'h_tube','H_N', 'h_N', 'params_z_tube');
