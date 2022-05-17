@@ -33,9 +33,6 @@ K_tube = compute_tube_controller(p, params_z);
 [H_tube, h_tube,~] = compute_minRPI(K_tube, params_z);
 params_z_tube = compute_tightening(K_tube, H_tube, h_tube, params_z);
 [H_N, h_N] = lqr_maxPI(Q_z, R, params_z_tube);
-my_MPC_TUBE_ctrl = MPC_TUBE(Q_z, R, N, H_N, h_N, H_tube, h_tube, K_tube, params_z_tube);
-x0_z = params_z.model.InitialConditionA_z;
-[Xt, Ut, u_info] = simulate(x0_z, my_MPC_TUBE_ctrl, params_z);
 
 %% Save Parameters
 save('scripts/MPC_TUBE_params', 'p', 'K_tube', 'H_tube', 'h_tube', ...
