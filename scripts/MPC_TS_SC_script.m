@@ -48,7 +48,7 @@ my_MPC_TS_ctrl = MPC_TS(Q,R,N,H,h,my_params);
 
 %% Tune S,v for MPC w/ Soft Constraints
 S = eye(nx);
-v = logspace(2,6,5); % 100, 1000, 10000, 100000, 1000000
+v = logspace(2,6,5); % 100 is good enough
 
 for i = 1:size(v,2)
     my_MPC_TS_SC_ctrl = MPC_TS_SC(Q,R,N,H,h,S,v(i),my_params);
