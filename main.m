@@ -40,7 +40,7 @@ end
 
 %% Run All Tests
 test_struct = run_tests();
-save('test_struct', 'test_struct');
+save('templates/test_struct', 'test_struct');
 
 %% Final Submission
 deliverables = {'generate_system_cont.m', 'generate_system.m', ...

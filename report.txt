@@ -1,0 +1,7 @@
+MPC Programming Assignment Test Report
+Spring 2022
+Justin Shim
+
+System: M1 MacBook Air, MATLAB 2021a
+
+For Task 28 (compute_minRPI.m), there seemed to be some unexpected behavior that stems from issues with numerical tolerance when checking the equality of the two polytopes before and after computing the Minkowski Sum. When run, the iteration gets stuck in the loop since the two polytopes are never evaluated as equal. This is the reason for having a for loop (rather than a while true loop) with a hard cap number of iterations (1000) to prevent getting stuck in an infinite loop. Furthermore, the behavior (numerical difference in H_tube and h_tube) when stepping through the code is different than when run regularly. In debug mode, the output for Scenarios 1 and 2 pass run_tests. Finally, upon testing just this function on another computer system, I'm able to pass run_tests('comput_minRPI.m') as expected. Therefore, I believe that the inability to pass this unit test stems from an issue with my system architecture. It may be the case that during grading, run_tests behaves as expected, in which case the test_struct.mat will be different for run_tests('comput_minRPI.m') only.
